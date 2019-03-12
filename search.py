@@ -1,5 +1,6 @@
 import os
 from bs4 import BeautifulSoup
+import nltk
 
 
 def changeDirectory(path):
@@ -23,3 +24,7 @@ def getSoup(pageContent):
 def getPageText(soup):
     pageText = soup.get_text()
     return pageText
+
+def getTokens(pageText):
+	tokens = nltk.word_tokenize(pageText)
+	return tokens

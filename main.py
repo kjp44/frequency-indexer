@@ -10,4 +10,7 @@ soup = search.getSoup(pageContent)
 
 pageText = search.getPageText(soup)
 
-print(pageText)
+tokens = search.getTokens(pageText)
+
+for token in tokens:
+	print(token)
