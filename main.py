@@ -1,16 +1,33 @@
 import search
+import collections
 
 search.changeDirectory('Pages')
 
 fileNames = search.getFileNames()
 
-pageContent = search.getPageContent(fileNames[0])
+index = {}
 
-soup = search.getSoup(pageContent)
+count = 0
 
-pageText = search.getPageText(soup)
+for fileName in fileNames:
+	count += 1
+	print('Indexing file: ' + fileName)
 
-tokens = search.getTokens(pageText)
+	pageContent = search.getPageContent(fileName)
 
-for token in tokens:
-	print(token)
+	soup = search.getSoup(pageContent)
+
+	pageText = search.getPageText(soup)
+
+	tokens = search.getTokens(pageText)
+
+	for token in tokens:
+		if token in index:
+			index[token] = index[token] + 1
+		else:
+			index[token] = 1
+
+orderedIndex = collections.OrderedDict(sorted(index.items()))
+
+for key in orderedIndex:
+	print(key + ': ' + str(index[key]))
